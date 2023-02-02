@@ -1,4 +1,5 @@
-﻿#include "../Global.h"
+﻿#include "../pch.h"
+#include "../Global.h"
 #include <thread>
 
 namespace Module {
@@ -48,6 +49,7 @@ namespace Module {
                 leafBlockDim.push(a2->getDimensionId());
             }
         }
+        return true;
     }
 
     bool FastLeafDecayFunc() {

@@ -1,7 +1,8 @@
 #if 0
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/BinaryStream.hpp>
-#include <MC/MinecraftPackets.hpp>
+#include <llapi/mc/BinaryStream.hpp>
+#include <llapi/mc/MinecraftPackets.hpp>
 namespace Module {
 
     std::unordered_map<string, string> elist;

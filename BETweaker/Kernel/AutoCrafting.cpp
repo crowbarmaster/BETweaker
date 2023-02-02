@@ -1,14 +1,15 @@
-﻿#include "../Global.h"
-#include <MC/Block.hpp>
-#include <MC/SortItemInstanceIdAux.hpp>
-#include <MC/ItemInstance.hpp>
-#include <MC/Recipe.hpp>
-#include <MC/CraftingContainer.hpp>
-#include <mc/BlockActor.hpp>
-#include <MC/DispenserBlockActor.hpp>
-#include <MC/Recipes.hpp>
-#include <MC/Spawner.hpp>
-#include <MC/HopperBlockActor.hpp>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/MC/Block.hpp>
+#include <llapi/MC/SortItemInstanceIdAux.hpp>
+#include <llapi/MC/ItemInstance.hpp>
+#include <llapi/MC/Recipe.hpp>
+#include <llapi/MC/CraftingContainer.hpp>
+#include <llapi/mc/BlockActor.hpp>
+#include <llapi/MC/DispenserBlockActor.hpp>
+#include <llapi/MC/Recipes.hpp>
+#include <llapi/MC/Spawner.hpp>
+#include <llapi/MC/HopperBlockActor.hpp>
 
 
 namespace Module {

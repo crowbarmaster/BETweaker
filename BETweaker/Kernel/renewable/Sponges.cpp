@@ -1,6 +1,7 @@
+#include "../../pch.h"
 #include "../../Global.h"
-#include <MC/ActorFactory.hpp>
-#include <MC/ActorDefinitionIdentifier.hpp>
+#include <llapi/MC/ActorFactory.hpp>
+#include <llapi/MC/ActorDefinitionIdentifier.hpp>
 
 THook2("renewableSponges", void, "?onLightningHit@Actor@@UEAAXXZ",
     Actor* self)

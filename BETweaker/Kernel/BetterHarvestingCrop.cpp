@@ -1,5 +1,6 @@
-﻿#include "../Global.h"
-#include <MC/NetherWartBlock.hpp>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/MC/NetherWartBlock.hpp>
 
 static_assert(sizeof(Randomize) == 0x10);
 

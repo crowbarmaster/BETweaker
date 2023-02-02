@@ -1,21 +1,22 @@
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/CommandUtils.hpp>
-#include <MC/DataItem.hpp>
-#include <MC/LoopbackPacketSender.hpp>
-#include <MC/NetworkIdentifier.hpp>
-#include <MC/Block.hpp>
-#include <MC/Item.hpp>
-#include <MC/PropertiesSettings.hpp>
-#include <MC/Localization.hpp>
-#include <MC/Material.hpp>
-#include <MC/Monster.hpp>
-#include <MC/HashedString.hpp>
-#include <MC/Container.hpp>
-#include <MC/SynchedActorData.hpp>
-#include <ScheduleAPI.h>
+#include <llapi/mc/CommandUtils.hpp>
+#include <llapi/mc/DataItem.hpp>
+#include <llapi/mc/LoopbackPacketSender.hpp>
+#include <llapi/mc/NetworkIdentifier.hpp>
+#include <llapi/mc/Block.hpp>
+#include <llapi/mc/Item.hpp>
+#include <llapi/mc/PropertiesSettings.hpp>
+#include <llapi/mc/Localization.hpp>
+#include <llapi/mc/Material.hpp>
+#include <llapi/mc/Monster.hpp>
+#include <llapi/mc/HashedString.hpp>
+#include <llapi/mc/Container.hpp>
+#include <llapi/mc/SynchedActorData.hpp>
+#include <llapi/ScheduleAPI.h>
 #include "../Main/setting.h"
-#include <MC/Dimension.hpp>
-#include <MC/Abilities.hpp>
+#include <llapi/mc/Dimension.hpp>
+#include <llapi/mc/Abilities.hpp>
 
 namespace HUBHelper {
     string canDestroy(Block* block, ItemStack* tool) {
@@ -166,6 +167,7 @@ namespace Module {
                         }
                     }
                 }
+        return true;
                 });
             }, 3);
     }

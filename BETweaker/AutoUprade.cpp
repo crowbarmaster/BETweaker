@@ -1,98 +1,100 @@
-#define CPPHTTPLIB_OPENSSL_SUPPORT
-#include <LLAPI.h>
-#include <Nlohmann/json.hpp>
-#include <ServerAPI.h>
-#include <Utils/CryptHelper.h>
-#include <Utils/FileHelper.h>
-#include <Utils/NetworkHelper.h>
-#include <Utils/StringHelper.h>
-#include <chrono>
-#include <filesystem>
-#include <httplib/httplib.h>
-#include <process.h>
-#include <string>
-#include <thread>
-#include "Global.h"
+//#define CPPHTTPLIB_OPENSSL_SUPPORT
+//#include "pch.h"
+//#include "Global.h"
+//#include <llapi/LLAPI.h>
+//#include <Nlohmann/json.hpp>
+//#include <llapi/ServerAPI.h>
+//#include <llapi/Utils/CryptHelper.h>
+//#include <llapi/Utils/FileHelper.h>
+//#include <llapi/Utils/NetworkHelper.h>
+//#include <llapi/Utils/StringHelper.h>
+//#include <chrono>
+//#include <filesystem>
+//#include <httplib/httplib.h>
+//#include <process.h>
+//#include <string>
+//#include <thread>
+//
+//void checkUpdate() {
+//    std::thread t([] {
+//        try {
+//            string infoUrl = "https://api.minebbs.com/api/openapi/v1/resources/3840/updates?page=1";
+//            string info;
+//            int status = -1;
+//            if (!HttpGetSync(infoUrl, &status, &info, LL_UPDATE_CONNECTION_TIMEOUT) || status != 200) {
+//                //logger.info("Unable to check for updates. Download failed! Error Code: {}", status);
+//                return;
+//            }
+//            nlohmann::json data1 = nlohmann::json::parse(info, nullptr, true, true);
+//            if (data1.find("data") != data1.end()) {
+//                nlohmann::json data2 = data1["data"];
+//                ll::Version verRemote = ll::Version::parse(data2[0]["title"].get<string>());
+//                ll::Version verLocal = VERSION;
+//                if (verRemote > verLocal) {
+//                    logger.info("New version available: {}\n-->https://www.minebbs.com/resources/betweaker.3840/\n-->https://github.com/dreamguxiang/BETweaker/releases", verRemote.toString());
+//                }
+//                else {
+//					logger.info("No new version available.");
+//                }
+//            }
+//        }
+//        catch (nlohmann::json::exception& e) {
+//            logger.info("An error occurred while parsing the update configuration, {}", e.what());
+//
+//        }
+//        catch (const seh_exception& e) {
+//            logger.info("SEH Uncaught Exception Detected!\n{}", e.what());
+//            logger.info("In Auto Update system");
+//
+//        }
+//        catch (...) {
+//            logger.info("An error was caught during the update process.");
+//
+//        }
+//        });
+//    t.detach();
+//}
+//
+//
+//enum class DownloadResult
+//{
+//    Success,
+//    FailInit,
+//    FailDownload,
+//    FailDownloadMd5,
+//    FailCheckMd5
+//};
+//#if 0
+//void downloadEmoteList() {
+//    string url = "https://litetitlelitetitle.coding.net/p/updateupdate/d/update/git/raw/master/EmoteData.json";
+//    string domain, path;
+//    SplitHttpUrl(url, domain, path);
+//
+//    //Init
+//    httplib::Client cli(domain.c_str());
+//    cli.set_connection_timeout(LL_UPDATE_CONNECTION_TIMEOUT, 0);
+//
+//    //Download
+//    auto response = cli.Get(path.c_str());
+//    if (response && response->status == 200)
+//    {
+//        if (std::filesystem::exists(".\\plugins\\BETweaker\\EmoteData.json"))
+//            std::filesystem::remove(".\\plugins\\BETweaker\\EmoteData.json");
+//
+//        std::ios_base::openmode mode = std::ios::out;
+//
+//        std::ofstream fout(".\\plugins\\BETweaker\\EmoteData.json", mode);
+//        fout << response->body;
+//        fout.close();
+//    }
+//    else
+//    {
+//
+//    }
+//}
+//
+//#endif
 
-void checkUpdate() {
-    std::thread t([] {
-        try {
-            string infoUrl = "https://api.minebbs.com/api/openapi/v1/resources/3840/updates?page=1";
-            string info;
-            int status = -1;
-            if (!HttpGetSync(infoUrl, &status, &info, LL_UPDATE_CONNECTION_TIMEOUT) || status != 200) {
-                //logger.info("Unable to check for updates. Download failed! Error Code: {}", status);
-                return;
-            }
-            nlohmann::json data1 = nlohmann::json::parse(info, nullptr, true, true);
-            if (data1.find("data") != data1.end()) {
-                nlohmann::json data2 = data1["data"];
-                ll::Version verRemote = ll::Version::parse(data2[0]["title"].get<string>());
-                ll::Version verLocal = VERSION;
-                if (verRemote > verLocal) {
-                    logger.info("New version available: {}\n-->https://www.minebbs.com/resources/betweaker.3840/\n-->https://github.com/dreamguxiang/BETweaker/releases", verRemote.toString());
-                }
-                else {
-					logger.info("No new version available.");
-                }
-            }
-        }
-        catch (nlohmann::json::exception& e) {
-            logger.info("An error occurred while parsing the update configuration, {}", e.what());
-
-        }
-        catch (const seh_exception& e) {
-            logger.info("SEH Uncaught Exception Detected!\n{}", e.what());
-            logger.info("In Auto Update system");
-
-        }
-        catch (...) {
-            logger.info("An error was caught during the update process.");
-
-        }
-        });
-    t.detach();
-}
-
-
-enum class DownloadResult
-{
-    Success,
-    FailInit,
-    FailDownload,
-    FailDownloadMd5,
-    FailCheckMd5
-};
-#if 0
-void downloadEmoteList() {
-    string url = "https://litetitlelitetitle.coding.net/p/updateupdate/d/update/git/raw/master/EmoteData.json";
-    string domain, path;
-    SplitHttpUrl(url, domain, path);
-
-    //Init
-    httplib::Client cli(domain.c_str());
-    cli.set_connection_timeout(LL_UPDATE_CONNECTION_TIMEOUT, 0);
-
-    //Download
-    auto response = cli.Get(path.c_str());
-    if (response && response->status == 200)
-    {
-        if (std::filesystem::exists(".\\plugins\\BETweaker\\EmoteData.json"))
-            std::filesystem::remove(".\\plugins\\BETweaker\\EmoteData.json");
-
-        std::ios_base::openmode mode = std::ios::out;
-
-        std::ofstream fout(".\\plugins\\BETweaker\\EmoteData.json", mode);
-        fout << response->body;
-        fout.close();
-    }
-    else
-    {
-
-    }
-}
-
-#endif
 //#define CPPHTTPLIB_OPENSSL_SUPPORT
 //
 //#include <LLAPI.h>

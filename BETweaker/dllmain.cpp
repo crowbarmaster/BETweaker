@@ -1,6 +1,7 @@
 // dllmain.cpp : 定义 DLL 应用程序的入口点。
+#include "pch.h"
 #include "Global.h"
-#include <LLAPI.h>
+#include <llapi/LLAPI.h>
 #pragma comment(lib, "../SDK/Lib/bedrock_server_api.lib")
 #pragma comment(lib, "../SDK/Lib/bedrock_server_var.lib")
 #pragma comment(lib, "../SDK/Lib/SymDBHelper.lib")

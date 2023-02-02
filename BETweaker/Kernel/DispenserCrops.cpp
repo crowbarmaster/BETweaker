@@ -1,9 +1,10 @@
-﻿#include "../Global.h"
-#include <MC/SeedItemComponentLegacy.hpp>
-#include <MC/BlockActor.hpp>
-#include <MC/CameraItemComponentLegacy.hpp>
-#include <MC/Material.hpp>
-#include <MC/BlockActorDataPacket.hpp>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/mc/SeedItemComponentLegacy.hpp>
+#include <llapi/mc/BlockActor.hpp>
+#include <llapi/mc/CameraItemComponentLegacy.hpp>
+#include <llapi/mc/Material.hpp>
+#include <llapi/mc/BlockActorDataPacket.hpp>
 
 namespace Module {
 

@@ -1,3 +1,4 @@
+#include "pch.h"
 #pragma once
 #include "Version.h"
 
@@ -10,48 +11,49 @@
 #define H(x) do_hash2(x)
 
 #include <iostream>
-#include <Global.h>
+#include <llapi/Global.h>
 #include "Main/setting.h"
-#include <MC/Player.hpp>
-#include <MC/BlockInstance.hpp>
-#include <MC/Block.hpp>
-#include <MC/CropBlock.hpp>
-#include <MC/BlockLegacy.hpp>
-#include <MC/ItemStack.hpp>
-#include <EventAPI.h>
-#include <LoggerAPI.h>
-#include <MC/ItemInstance.hpp>
-#include <mc/CompoundTag.hpp>
-#include <MC/Level.hpp>
-#include <MC/Randomize.hpp>
-#include <MC/Random.hpp>
-#include <MC/Container.hpp>
-#include <MC/Item.hpp>
-#include <MC/BlockSource.hpp>
-#include <MC/ResourcePack.hpp>
-#include <MC/PackSourceFactory.hpp>
-#include <MC/Core.hpp>
-#include <MC/ResourcePackManager.hpp>
-#include <MC/PackIdVersion.hpp>
-#include <MC/VanillaBlocks.hpp>
-#include <MC/LeafBlock.hpp>
-#include <MC/SemVersion.hpp>
-#include <MC/DispenserBlock.hpp>
-#include <MC/LogBlock.hpp>
-#include <MC/FallingBlock.hpp>
-#include <MC/FishingHook.hpp>
-#include <MC/DoorBlock.hpp>
-#include <MC/Facing.hpp>
-#include <MC/BlockStateVariant.hpp>
-#include <MC/BlockStateGroup.hpp>
-#include <MC/EnchantUtils.hpp>
-#include <MC/EnchantmentInstance.hpp>
-#include <MC/VanillaStates.hpp>
-#include <MC/ItemState.hpp>
-#include <MC/DispenserBlockActor.hpp>
+#include <llapi/mc/Player.hpp>
+#include <llapi/mc/BlockInstance.hpp>
+#include <llapi/mc/Block.hpp>
+#include <llapi/mc/CropBlock.hpp>
+#include <llapi/mc/BlockLegacy.hpp>
+#include <llapi/mc/ItemStack.hpp>
+#include <llapi/EventAPI.h>
+#include <llapi/LoggerAPI.h>
+#include <llapi/mc/ItemInstance.hpp>
+#include <llapi/mc/CompoundTag.hpp>
+#include <llapi/mc/Level.hpp>
+#include <llapi/mc/Randomize.hpp>
+#include <llapi/mc/Random.hpp>
+#include <llapi/mc/Container.hpp>
+#include <llapi/mc/Item.hpp>
+#include <llapi/mc/BlockSource.hpp>
+#include <llapi/mc/ResourcePack.hpp>
+#include <llapi/mc/PackSourceFactory.hpp>
+#include <llapi/mc/Core.hpp>
+#include <llapi/mc/ResourcePackManager.hpp>
+#include <llapi/mc/PackIdVersion.hpp>
+#include <llapi/mc/VanillaBlocks.hpp>
+#include <llapi/mc/LeafBlock.hpp>
+#include <llapi/mc/SemVersion.hpp>
+#include <llapi/mc/DispenserBlock.hpp>
+#include <llapi/mc/LogBlock.hpp>
+#include <llapi/mc/FallingBlock.hpp>
+#include <llapi/mc/FishingHook.hpp>
+#include <llapi/mc/DoorBlock.hpp>
+#include <llapi/mc/Facing.hpp>
+#include <llapi/mc/BlockStateVariant.hpp>
+#include <llapi/mc/BlockStateGroup.hpp>
+#include <llapi/mc/EnchantUtils.hpp>
+#include <llapi/mc/EnchantmentInstance.hpp>
+#include <llapi/mc/VanillaStates.hpp>
+#include <llapi/mc/ItemState.hpp>
+#include <llapi/mc/DispenserBlockActor.hpp>
 #include "Main/Helper.hpp"
-#include <FormUI.h>
-#include <ScheduleAPI.h>
+#include <llapi/FormUI.h>
+#include <llapi/ScheduleAPI.h>
+#include <set>
 
 extern Logger logger;
 extern ScheduleTask hubinfo;
@@ -75,5 +77,5 @@ bool CheckAutoUpdate(bool isUpdateManually, bool forceUpdate = false);
 #define LL_UPDATE_OTHER_FILES_RECORD "plugins/BETweaker/Versions.ini"
 
 extern void loadCfg();
-extern void checkUpdate();
-extern std::set<string> sleepList;
+//extern void checkUpdate();
+extern std::set<std::string> sleepList;

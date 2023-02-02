@@ -1,11 +1,12 @@
-﻿#include "../Global.h"
+﻿#include "../pch.h"
+#include "../Global.h"
 #include "Module.h"
 #include "setting.h"
-#include <MC/AdventureSettings.hpp>
-#include <MC/RequestAbilityPacket.hpp>
-#include <MC/ServerPlayer.hpp>
-#include <MC/Abilities.hpp>
-#include <MC/ServerLevel.hpp>
+#include <llapi/MC/AdventureSettings.hpp>
+#include <llapi/MC/RequestAbilityPacket.hpp>
+#include <llapi/MC/ServerPlayer.hpp>
+#include <llapi/MC/Abilities.hpp>
+#include <llapi/MC/ServerLevel.hpp>
 #include "../Main/Helper.hpp"
 bool nodis = false;
 
@@ -51,7 +52,7 @@ THook(void, "?transformOnFall@FarmBlock@@UEBAXAEAVBlockSource@@AEBVBlockPos@@PEA
 	}
 	return original(__this, a2, a3, a4, a5);
 }
-#include <Utils/CsLock.h>
+#include <llapi/Utils/CsLock.h>
 CsLock DispenserejectItemLock;
 THook(void, "?ejectItem@DispenserBlock@@IEBAXAEAVBlockSource@@AEBVVec3@@EAEBVItemStack@@AEAVContainer@@H@Z", DispenserBlock* a1,
       BlockSource* a2,
@@ -70,10 +71,10 @@ THook(void, "?ejectItem@DispenserBlock@@IEBAXAEAVBlockSource@@AEBVVec3@@EAEBVIte
 	return original(a1, a2, a3, a4, a5, a6, a7);
 }
 
-#include <MC/BlockActor.hpp>
-#include <MC/DispenserBlockActor.hpp>
-#include <MC/Container.hpp>
-#include <MC/RandomizableBlockActorContainerBase.hpp>
+#include <llapi/MC/BlockActor.hpp>
+#include <llapi/MC/DispenserBlockActor.hpp>
+#include <llapi/MC/Container.hpp>
+#include <llapi/MC/RandomizableBlockActorContainerBase.hpp>
 typedef std::chrono::high_resolution_clock timer_clock;
 #define TIMER_START auto start = timer_clock::now();
 #define TIMER_END                                                      \
@@ -177,8 +178,8 @@ THook(int, "?getComparatorSignal@DispenserBlock@@UEBAHAEAVBlockSource@@AEBVBlock
 	return original(self, a2, a3, a4);
 }
 
-#include <MC/BaseCircuitComponent.hpp>
-#include <MC/Hopper.hpp>
+#include <llapi/MC/BaseCircuitComponent.hpp>
+#include <llapi/MC/Hopper.hpp>
 TInstanceHook(bool, "?_pushOutItems@Hopper@@IEAA_NAEAVBlockSource@@AEAVContainer@@AEBVVec3@@H@Z",
 	Hopper, BlockSource& region, Container* fromContainer, Vec3 position, unsigned int attachedFace)
 {
@@ -304,11 +305,11 @@ TInstanceHook(__int64, "?interact@Player@@QEAA_NAEAVActor@@AEBVVec3@@@Z",
 }
 
 
-#include <MC/PlayerInventory.hpp>
-#include <MC/GameMode.hpp>
-#include <MC/Inventory.hpp>
-#include <MC/ServerPlayer.hpp>
-#include <MC/NetworkItemStackDescriptor.hpp>
+#include <llapi/MC/PlayerInventory.hpp>
+#include <llapi/MC/GameMode.hpp>
+#include <llapi/MC/Inventory.hpp>
+#include <llapi/MC/ServerPlayer.hpp>
+#include <llapi/MC/NetworkItemStackDescriptor.hpp>
 
 TInstanceHook(void, "?useItem@Player@@UEAAXAEAVItemStackBase@@W4ItemUseMethod@@_N@Z", Player, ItemStackBase& item, int a2, bool a3)
 {
@@ -343,7 +344,7 @@ TInstanceHook(bool, "?hurtAndBreak@ItemStackBase@@QEAA_NHPEAVActor@@@Z", ItemSta
 	return out;
 }
 
-#include <MC/SurvivalMode.hpp>
+#include <llapi/MC/SurvivalMode.hpp>
 
 TInstanceHook(bool, "?destroyBlock@GameMode@@UEAA_NAEBVBlockPos@@E@Z",
 	GameMode, BlockPos a3, unsigned __int8 a4)
@@ -357,10 +358,10 @@ TInstanceHook(bool, "?destroyBlock@GameMode@@UEAA_NAEBVBlockPos@@E@Z",
 	}
 	return original(this, a3, a4);
 }
-#include <MC/ChunkSource.hpp>
-#include <MC/LevelChunkMetaData.hpp>
+#include <llapi/MC/ChunkSource.hpp>
+#include <llapi/MC/LevelChunkMetaData.hpp>
 
-#include <MC/LevelChunkMetaDataDictionary.hpp>
+#include <llapi/MC/LevelChunkMetaDataDictionary.hpp>
 TInstanceHook(bool, "?baseUseItem@GameMode@@QEAA_NAEAVItemStack@@@Z",
 	GameMode, ItemStack* item)
 {
@@ -399,10 +400,10 @@ TInstanceHook(AdventureSettingsPacket&, "??0AdventureSettingsPacket@@QEAA@AEBUAd
 }
 #endif
 
-#include <MC/UpdateAdventureSettingsPacket.hpp>
-#include <MC/UpdateAbilitiesPacket.hpp>
-#include <MC/LayeredAbilities.hpp>
-#include <mc/Ability.hpp>
+#include <llapi/MC/UpdateAdventureSettingsPacket.hpp>
+#include <llapi/MC/UpdateAbilitiesPacket.hpp>
+#include <llapi/MC/LayeredAbilities.hpp>
+#include <llapi/mc/Ability.hpp>
 enum class AbilitiesLayer;
 TInstanceHook(void, "?handle@ServerNetworkHandler@@UEAAXAEBVNetworkIdentifier@@AEBVRequestAbilityPacket@@@Z",
 	ServerNetworkHandler, class NetworkIdentifier const& nid, class RequestAbilityPacket const& pkt)
@@ -434,8 +435,8 @@ TInstanceHook(void, "?handle@ServerNetworkHandler@@UEAAXAEBVNetworkIdentifier@@A
 	}
 }
 
-#include <MC/BucketItem.hpp>
-#include <MC/LootTableContext.hpp>
+#include <llapi/MC/BucketItem.hpp>
+#include <llapi/MC/LootTableContext.hpp>
 THook(char, "?dispense@BucketItem@@UEBA_NAEAVBlockSource@@AEAVContainer@@HAEBVVec3@@E@Z",
 	BucketItem* _this,
 	BlockSource* a2,
@@ -448,10 +449,10 @@ THook(char, "?dispense@BucketItem@@UEBA_NAEAVBlockSource@@AEAVContainer@@HAEBVVe
 	//logger.info << t->getTypeName() << " " << a5->toBlockPos().toString() << "  " << rtn << logger.endl;
 	return rtn;
 }
-//#include <MC/LeashableComponent.hpp>
-//#include <MC/SynchedActorData.hpp>
-//#include <MC/VanillaItemNames.hpp>
-//#include <MC/ActorComponentFactory.hpp>
+//#include <llapi/mc/LeashableComponent.hpp>
+//#include <llapi/mc/SynchedActorData.hpp>
+//#include <llapi/mc/VanillaItemNames.hpp>
+//#include <llapi/mc/ActorComponentFactory.hpp>
 //TInstanceHook(void, "?handle@ItemUseOnActorInventoryTransaction@@UEBA?AW4InventoryTransactionError@@AEAVPlayer@@_N@Z",
 //	ServerNetworkHandler, ServerPlayer* sp, bool unk) {
 //	auto uid = dAccess<ActorRuntimeID, 104>(this);

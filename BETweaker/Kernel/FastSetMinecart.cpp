@@ -1,9 +1,10 @@
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/ActorFactory.hpp>
-#include <MC/ActorDefinitionIdentifier.hpp>
-#include <MC/Minecart.hpp>
-#include <MC/Spawner.hpp>
-#include <MC/Types.hpp>
+#include <llapi/mc/ActorFactory.hpp>
+#include <llapi/mc/ActorDefinitionIdentifier.hpp>
+#include <llapi/mc/Minecart.hpp>
+#include <llapi/mc/Spawner.hpp>
+#include <llapi/mc/Types.hpp>
 
 namespace Module {
     std::unordered_set<string> minecartItem{
@@ -34,6 +35,8 @@ namespace Module {
             pl->sendInventory(1);
             auto& af = Global<Level>->getActorFactory();
             Global<Level>->addEntity(*pl->getBlockSource(), af.createTransformedActor(ActorDefinitionIdentifier(getMinecartActorType(item->getTypeName())), ac));
+            return true;
         }
+        return false;
     }
 }

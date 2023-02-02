@@ -1,10 +1,11 @@
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/Material.hpp>
-#include <MC/ServerPlayer.hpp>
-#include <MC/FeatureRegistry.hpp>
-#include <MC/ListTag.hpp>
-#include <mc/PlayerInventory.hpp>
-#include <MC/BedrockBlocks.hpp>
+#include <llapi/mc/Material.hpp>
+#include <llapi/mc/ServerPlayer.hpp>
+#include <llapi/mc/FeatureRegistry.hpp>
+#include <llapi/mc/ListTag.hpp>
+#include <llapi/mc/PlayerInventory.hpp>
+#include <llapi/mc/BedrockBlocks.hpp>
 enum class MaterialType;
 namespace Module {
     std::unordered_set<string> LogBlocks{

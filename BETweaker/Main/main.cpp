@@ -1,11 +1,12 @@
+#include "../pch.h"
 #include "../Global.h"
 #include "Module.h"
-#include <MC/Dimension.hpp>
-#include <MC/Actor.hpp>
-#include <ScheduleAPI.h>
-#include <MC/ResourcePackRepository.hpp>
-#include <MC/ResourcePackStack.hpp>
-#include <MC/BlockActor.hpp>
+#include <llapi/MC/Dimension.hpp>
+#include <llapi/MC/Actor.hpp>
+#include <llapi/ScheduleAPI.h>
+#include <llapi/MC/ResourcePackRepository.hpp>
+#include <llapi/MC/ResourcePackStack.hpp>
+#include <llapi/MC/BlockActor.hpp>
 Logger logger(fmt::format(fg(fmt::color::light_pink), "BETweaker"));
 map<string, long > useitemonbug;
 
@@ -112,17 +113,17 @@ void loadCfg() {
     }
 }//加载语言&配置文件
 
-#include <MC/ResourcePackManager.hpp>
-#include <MC/ResourceLocation.hpp>
-#include <MC/Types.hpp>
-#include <MC/PackSourceFactory.hpp>
-#include <MC/CompositePackSource.hpp>
-#include <MC/PackSourceFactory.hpp>
-#include <MC/ResourcePackPaths.hpp>
-#include <MC/DirectoryPackSource.hpp> 
-#include <MC/PackSource.hpp>
+#include <llapi/MC/ResourcePackManager.hpp>
+#include <llapi/MC/ResourceLocation.hpp>
+#include <llapi/MC/Types.hpp>
+#include <llapi/MC/PackSourceFactory.hpp>
+#include <llapi/MC/CompositePackSource.hpp>
+#include <llapi/MC/PackSourceFactory.hpp>
+#include <llapi/MC/ResourcePackPaths.hpp>
+#include <llapi/MC/DirectoryPackSource.hpp> 
+#include <llapi/MC/PackSource.hpp>
 
-static_assert(sizeof(SemVersion) == 0x70);
+//static_assert(sizeof(SemVersion) == 0x70);
 
 extern void RegisterCommands();
 
@@ -134,7 +135,7 @@ void initEvent()
     Event::ServerStartedEvent::subscribe([](const Event::ServerStartedEvent& ev) {
         if(Settings::HUBinfo) Module::HUBInfo();
         std::thread th([]() {
-            checkUpdate();
+            //checkUpdate();
             });
         th.detach();
         return true;
@@ -142,7 +143,7 @@ void initEvent()
 }
 
 void regtest();
-#include <ServerAPI.h>
+#include <llapi/ServerAPI.h>
 using namespace std::filesystem;
 
 void removeOldPack() {

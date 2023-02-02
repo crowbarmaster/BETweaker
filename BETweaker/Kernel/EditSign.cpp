@@ -1,6 +1,7 @@
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/SignBlockActor.hpp>
-#include <MC/BlockActorDataPacket.hpp>
+#include <llapi/mc/SignBlockActor.hpp>
+#include <llapi/mc/BlockActorDataPacket.hpp>
 
 namespace Module {
 	

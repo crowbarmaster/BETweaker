@@ -1,16 +1,17 @@
+#include "../pch.h"
 #include "../Global.h"
-#include <MC/ServerLevel.hpp>
-#include <MC/GameRules.hpp>
-#include <MC/LevelSettings.hpp>
-#include <MC/GameRuleId.hpp>
-#include <MC/SetTimePacket.hpp>
-#include <MC/LevelData.hpp>
-#include <ScheduleAPI.h>
-#include <MC/AttributeInstance.hpp>
-#include <MC/Weather.hpp>
-#include <MC/Attribute.hpp>
-#include <MC/Dimension.hpp>
-#include <MC/SharedAttributes.hpp>
+#include <llapi/mc/ServerLevel.hpp>
+#include <llapi/mc/GameRules.hpp>
+#include <llapi/mc/LevelSettings.hpp>
+#include <llapi/mc/GameRuleId.hpp>
+#include <llapi/mc/SetTimePacket.hpp>
+#include <llapi/mc/LevelData.hpp>
+#include <llapi/ScheduleAPI.h>
+#include <llapi/mc/AttributeInstance.hpp>
+#include <llapi/mc/Weather.hpp>
+#include <llapi/mc/Attribute.hpp>
+#include <llapi/mc/Dimension.hpp>
+#include <llapi/mc/SharedAttributes.hpp>
 
 static_assert(sizeof(GameRuleId) == 4);
 static_assert(sizeof(SetTimePacket) == 56);

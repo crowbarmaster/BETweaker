@@ -1,16 +1,17 @@
-﻿#include "../Global.h"
-#include <RegCommandAPI.h>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/RegCommandAPI.h>
 #include "../Main/Module.h"
-#include <MC/ServerPlayer.hpp>
-#include <DynamicCommandAPI.h>
-#include <MC/AdventureSettings.hpp>
-#include <MC/UpdateAbilitiesPacket.hpp>
+#include <llapi/MC/ServerPlayer.hpp>
+#include <llapi/DynamicCommandAPI.h>
+#include <llapi/MC/AdventureSettings.hpp>
+#include <llapi/MC/UpdateAbilitiesPacket.hpp>
 
-#include <MC/RequestAbilityPacket.hpp>
-#include <MC/ServerPlayer.hpp>
+#include <llapi/MC/RequestAbilityPacket.hpp>
+#include <llapi/MC/ServerPlayer.hpp>
 #include "../Main/Helper.hpp"
 #include <magic_enum/magic_enum.hpp>
-#include <ServerAPI.h>
+#include <llapi/ServerAPI.h>
 using namespace RegisterCommandHelper;
 
 #define COMMAND_PERM(X)                                            \
@@ -29,10 +30,10 @@ void BETweakerUpgradeCommand(CommandOutput& output, bool isForce)
 }
 
 
-#include <MC/Abilities.hpp>
-#include <MC/LayeredAbilities.hpp>
-#include <mc/UpdateAdventureSettingsPacket.hpp>
-#include <mc/AdventureSettings.hpp>
+#include <llapi/MC/Abilities.hpp>
+#include <llapi/MC/LayeredAbilities.hpp>
+#include <llapi/mc/UpdateAdventureSettingsPacket.hpp>
+#include <llapi/mc/AdventureSettings.hpp>
 enum class AbilitiesLayer;
 void setPlayerAbility(Player& player, AbilitiesIndex index, bool value)
 {
@@ -511,8 +512,8 @@ public:
 		
     }
 };
-#include <MC/LevelSeed64.hpp>
-#include <MC/CommandOutputParameter.hpp>
+#include <llapi/MC/LevelSeed64.hpp>
+#include <llapi/MC/CommandOutputParameter.hpp>
 class SeedCommand : public Command
 {
 

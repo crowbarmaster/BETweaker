@@ -1,7 +1,8 @@
-﻿#include "../Global.h"
-#include <MC/Randomize.hpp>
-#include <MC/Attribute.hpp>
-#include <MC/AttributeInstance.hpp>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/MC/Randomize.hpp>
+#include <llapi/MC/Attribute.hpp>
+#include <llapi/MC/AttributeInstance.hpp>
 
 namespace Module {
 	

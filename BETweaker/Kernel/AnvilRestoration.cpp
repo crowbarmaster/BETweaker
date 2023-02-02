@@ -1,4 +1,5 @@
-﻿#include "../Global.h"
+﻿#include "../pch.h"
+#include "../Global.h"
 
 namespace Module {
 

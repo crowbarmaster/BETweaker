@@ -41,6 +41,9 @@
     <ClInclude Include="Version.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -120,6 +123,9 @@
     </ClCompile>
     <ClCompile Include="Kernel\renewable\Deepslate.cpp">
       <Filter>Kernel\renewable</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

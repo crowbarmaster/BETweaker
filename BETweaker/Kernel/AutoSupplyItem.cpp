@@ -1,7 +1,8 @@
-﻿#include "../Global.h"
-#include <MC/Player.hpp>
-#include <MC/PlayerInventory.hpp>
-#include <MC/Tag.hpp>
+﻿#include "../pch.h"
+#include "../Global.h"
+#include <llapi/MC/Player.hpp>
+#include <llapi/MC/PlayerInventory.hpp>
+#include <llapi/MC/Tag.hpp>
 namespace Module {
 	
 	bool UseItemSupply(Player* sp, ItemStackBase& item, string itemname,short aux) {
@@ -40,6 +41,7 @@ namespace Module {
 			}
 		}
 	}
+
 	bool UseItemSupply(Player* sp, string itemname) {
 		auto& plinv = sp->getSupplies();
 		auto slotnum = dAccess<int, 16>(&plinv);
@@ -69,6 +71,7 @@ namespace Module {
 
 			}
 		}
+		return true;
 	}
 	
 }

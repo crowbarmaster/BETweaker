@@ -1,4 +1,5 @@
-﻿#include "../Global.h"
+﻿#include "../pch.h"
+#include "../Global.h"
 
 std::map<FishingHook*, int>fishingHook;
 namespace Module {

@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "../Global.h"
-#include <MC/I18n.hpp>
-#include <MC/HashedString.hpp>
-#include <MC/ToastRequestPacket.hpp>
-#include <MC/ServerPlayer.hpp>
-#include <mc/ItemStackNetIdVariant.hpp>
+#include <llapi/MC/I18n.hpp>
+#include <llapi/MC/HashedString.hpp>
+#include <llapi/MC/ToastRequestPacket.hpp>
+#include <llapi/MC/ServerPlayer.hpp>
+#include <llapi/mc/ItemStackNetIdVariant.hpp>
 struct NetworkIdentifierWithSubId;
 class PacketSender {
 public:
@@ -19,8 +19,8 @@ public:
 	virtual void sendBroadcast(NetworkIdentifier const&, uint8_t mSubId, Packet const&) = 0;
 	virtual void flush(NetworkIdentifier const&, std::function<void()>) = 0;
 };
-#include <MC/Types.hpp>
-#include <MC/KeyOrNameResult.hpp>
+#include <llapi/MC/Types.hpp>
+#include <llapi/MC/KeyOrNameResult.hpp>
 
 namespace Helper {
 
