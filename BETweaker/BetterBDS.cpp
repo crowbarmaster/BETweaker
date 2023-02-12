@@ -1,4 +1,4 @@
-#include "pch.h"
+
 #include "Global.h"
 #include <llapi/mc/NetworkItemStackDescriptor.hpp>
 #include <llapi/mc/ServerNetworkHandler.hpp>

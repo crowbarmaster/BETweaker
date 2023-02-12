@@ -38,31 +38,37 @@ namespace Module {
                 if (canFastSleep()) {
                     temp.cancel();
                     temp = Schedule::delay([]() {
-                        auto level = Global<Level>;
-                        auto& gameRule = level->getGameRules();
-                        if (gameRule.getBool(GameRuleId(1), 0)) {
-                            level->setTime((unsigned int)(24000 * ((level->getTime() + 24000) / 24000)));
-                            auto pkt = SetTimePacket(level->getTime());
-                            level->getPacketSender()->send(pkt);
+                    Level* level = Global<Level>;
+                    auto& gameRule = level->getGameRules();
+                    if (gameRule.getBool(GameRuleId(1), 0)) {
+                            //level->setTime((unsigned int)(24000 * ((level->getTime() + 24000) / 24000)));
+                           // auto pkt = SetTimePacket(level->getTime());
+                           // level->getPacketSender()->send(pkt);
                             Global<Level>->forEachPlayer([](Player& pl)->bool {
                                 if (pl.isSleeping()) {
                                     pl.stopSleepInBed(0, 0);
-                                    if (!(unsigned int)Global<Level>->getLevelData().getGameDifficulty())
+                                    if (!(unsigned int)pl.getLevel().getLevelData().getGameDifficulty())
                                     {
                                         auto att = pl.getMutableAttribute(SharedAttributes::HEALTH);
                                         att->resetToMaxValue();
                                         *((int*)&pl + 172) = 20;
                                         pl._sendDirtyActorData();
                                     }
+                                    Level& level = pl.getLevel();
+                                    int timeToSet = (level.getTime() + 24000) / 24000;
+                                    string command = "time set morning";
+                                    level.runcmd(command);
                                 }
                                 return true;
                                 });
                             *(bool*)(level + 10408) = 0;
                             level->forEachDimension([](Dimension& dim)->bool {
+                                
                                 dim.getWeather().stop();
                                 return true;
                                 });
                         }
+
                         sleepList.clear();
                         }, 80);
                 }
