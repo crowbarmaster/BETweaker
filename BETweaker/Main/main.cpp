@@ -66,18 +66,19 @@ bool PlayerUseOn(const Event::PlayerUseItemOnEvent& ev) {
         }
     }
 	
-    if (Settings::DispenserDestroyBlock) {
-        if (Helper::isBETstick(sp)) {
-            if (sp->isSneaking()) {
-                auto blactor = blockin.getBlockEntity();
-                if (blactor) {
-                    if (blactor->getType() == BlockActorType::Dispenser) {
-                        Module::ChangeDispenserMode(blactor, sp->getBlockSource(), sp);
-                    }
-                }
-            }
-        }
-    }
+    //if (Settings::DispenserDestroyBlock) {
+    //    if (Helper::isBETstick(sp)) {
+    //        if (sp->isSneaking()) {
+    //            auto blactor = blockin.getBlockEntity();
+    //            if (blactor) {
+    //                if (blactor->getType() == BlockActorType::Dispenser) {
+    //                    Module::ChangeDispenserMode(blactor, sp->getBlockSource(), sp);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    
     if (Settings::AnvilRestoration) {
         if (sp->isSneaking()) {
             auto out = Module::AnvilRestoration(item, blockin.getBlock(), blockin.getPosition(), sp);

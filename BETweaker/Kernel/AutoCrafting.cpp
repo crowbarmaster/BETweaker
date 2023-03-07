@@ -49,53 +49,53 @@ namespace Module {
     }
 
     bool AutoCrafting(DispenserBlockActor* ba, BlockSource* a2, BlockPos pos) {
-        auto outputpos = pos.add(0, -1);
-        auto be = a2->getBlockEntity(outputpos);
-        if (a2->getBlock(pos) == *craftingTable) {
-            if (be) {
-                if (be->getType() == BlockActorType::Hopper) {
-                    uint64_t tempItem = 0;
-                    auto cont = ba->getContainer();
-                    auto itemlist = cont->getAllSlots();
-                    for (auto i : itemlist) {
-                        tempItem += i->getFullNameHash().getHash() + i->getAux();
-                    }
+      //  auto outputpos = pos.add(0, -1);
+      //  auto be = a2->getBlockEntity(outputpos);
+      //  if (a2->getBlock(pos) == *craftingTable) {
+      //      if (be) {
+      //          if (be->getType() == BlockActorType::Hopper) {
+      //              uint64_t tempItem = 0;
+      //              auto cont = ba->getContainer();
+      //              auto itemlist = cont->getAllSlots();
+      //              for (auto i : itemlist) {
+      //                  tempItem += i->getFullNameHash().getHash() + i->getAux();
+      //              }
 
-                    if (TempCraftiingList.find(tempItem) != TempCraftiingList.end()) {
-                        auto hpcont = ((HopperBlockActor*)be)->getContainer();
-                        auto out = hpcont->addItem_s((ItemStack*)&TempCraftiingList[tempItem]);
-                        if (!out) {
-                            Global<Level>->getSpawner().spawnItem(*a2, *(ItemStack*)&TempCraftiingList[tempItem], nullptr, pos.toVec3(), 0);
-                        }
-                        cont->removeAllItems();
-                        return false;
-                    }
+      //              if (TempCraftiingList.find(tempItem) != TempCraftiingList.end()) {
+      //                  auto hpcont = ((HopperBlockActor*)be)->getContainer();
+      //                  auto out = hpcont->addItem_s((ItemStack*)&TempCraftiingList[tempItem]);
+      //                  if (!out) {
+      //                      Global<Level>->getSpawner().spawnItem(*a2, *(ItemStack*)&TempCraftiingList[tempItem], nullptr, pos.toVec3(), 0);
+      //                  }
+      //                  cont->removeAllItems();
+      //                  return false;
+      //              }
 
-                    CraftingContainer ctn(3, 3);
-                    for (auto i = 0; i < itemlist.size(); ++i) {
-                        ctn.setItem(i, *itemlist[i]);
-                    }
+      //              CraftingContainer ctn(3, 3);
+      //              for (auto i = 0; i < itemlist.size(); ++i) {
+      //                  ctn.setItem(i, *itemlist[i]);
+      //              }
 					
-                    for (auto& i : RecipeList) {
-                        bool match = i.second->matches(ctn, *Global<Level>);
-                        if (!match) continue;
-                        auto& recipeOutputs = i.second->assemble(ctn);
-                        auto hpcont = ((HopperBlockActor*)be)->getContainer();
-                        if (recipeOutputs.size() != 1) continue;
-                        auto outresult = hpcont->addItem_s((ItemStack*)&recipeOutputs[0]);
-						if (!outresult) {
-                            Global<Level>->getSpawner().spawnItem(*a2, *(ItemStack*)&recipeOutputs[0], nullptr, pos.toVec3(), 0);
-						}
-                        TempCraftiingList.emplace(tempItem, recipeOutputs[0]);
-                        cont->removeAllItems();
-                        return false;
-                    }
-                }
-            }
-        }
-        else {
-            return true;
-        }
+      //              for (auto& i : RecipeList) {
+      //                  bool match = i.second->matches(ctn, *Global<Level>);
+      //                  if (!match) continue;
+      //                  auto& recipeOutputs = i.second->assemble(ctn);
+      //                  auto hpcont = ((HopperBlockActor*)be)->getContainer();
+      //                  if (recipeOutputs.size() != 1) continue;
+      //                  auto outresult = hpcont->addItem_s((ItemStack*)&recipeOutputs[0]);
+						//if (!outresult) {
+      //                      Global<Level>->getSpawner().spawnItem(*a2, *(ItemStack*)&recipeOutputs[0], nullptr, pos.toVec3(), 0);
+						//}
+      //                  TempCraftiingList.emplace(tempItem, recipeOutputs[0]);
+      //                  cont->removeAllItems();
+      //                  return false;
+      //              }
+      //          }
+      //      }
+      //  }
+      //  else {
+      //      return true;
+      //  }
         return false;
     }
 }

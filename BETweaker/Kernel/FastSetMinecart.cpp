@@ -17,12 +17,13 @@ namespace Module {
         using enum ActorType;
         switch (H(a1))
         {
-        case(H("minecraft:chest")):
-            return ChestMinecart;
-        case(H("minecraft:hopper")):
-            return HopperMinecart;
-        case(H("minecraft:tnt")):
-            return TntMinecart;
+        //case(H("minecraft:chest")):
+        //    return ChestMinecart;
+        //case(H("minecraft:hopper")):
+        //    return HopperMinecart;
+        //case(H("minecraft:tnt")):
+        //    return TntMinecart;
+
         default:
             break;
         }
@@ -30,13 +31,13 @@ namespace Module {
 
     bool FastSetMinecart(Player* pl, Actor* ac) {
         auto item = pl->getHandSlot();
-        if (minecartItem.count(item->getTypeName())) {
-            item->remove(1);
-            pl->sendInventory(1);
-            auto& af = Global<Level>->getActorFactory();
-            Global<Level>->addEntity(*pl->getBlockSource(), af.createTransformedActor(ActorDefinitionIdentifier(getMinecartActorType(item->getTypeName())), ac));
-            return true;
-        }
+        //if (minecartItem.count(item->getTypeName())) {
+        //    item->remove(1);
+        //    pl->sendInventory(1);
+        //    auto& af = Global<Level>->getActorFactory();
+        //    Global<Level>->addEntity(*pl->getBlockSource(), af.createTransformedActor(ActorDefinitionIdentifier(getMinecartActorType(item->getTypeName())), ac));
+        //    return true;
+        //}
         return false;
     }
 }
