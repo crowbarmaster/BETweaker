@@ -2,3 +2,7 @@
 	path = SDK
 	url = https://github.com/LiteLDev/LiteLoaderSDK
 	branch = beta
+[submodule "SDK-cpp"]
+	path = SDK
+	url = https://github.com/LiteLDev/SDK-cpp.git
+	branch = main
