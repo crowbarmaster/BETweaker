@@ -2,8 +2,6 @@
 #include "../Global.h"
 #include <llapi/MC/NetherWartBlock.hpp>
 
-static_assert(sizeof(Randomize) == 0x10);
-
 namespace Module {
 
     bool LoadBetterHarvestingCrop(BlockInstance blockin, Player* sp) {
