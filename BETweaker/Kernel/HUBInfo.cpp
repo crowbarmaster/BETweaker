@@ -1,6 +1,8 @@
 #include "../pch.h"
 #include "../Global.h"
 #include <llapi/mc/CommandUtils.hpp>
+#include <llapi/mc/Command.hpp>
+#include <llapi/mc/CommandRegistry.hpp>
 #include <llapi/mc/DataItem.hpp>
 #include <llapi/mc/LoopbackPacketSender.hpp>
 #include <llapi/mc/NetworkIdentifier.hpp>
@@ -13,6 +15,9 @@
 #include <llapi/mc/HashedString.hpp>
 #include <llapi/mc/Container.hpp>
 #include <llapi/mc/SynchedActorData.hpp>
+#include <llapi/mc/Scoreboard.hpp>
+#include <llapi/mc/ScoreboardCommand.hpp>
+#include <llapi/mc/CommandSoftEnumRegistry.hpp>
 #include <llapi/ScheduleAPI.h>
 #include "../Main/setting.h"
 #include <llapi/mc/Dimension.hpp>
@@ -93,12 +98,13 @@ namespace Module {
                     if (Settings::HUBInfoShow == "TIP") {
                         if (ac) {
                             auto pos = ac->getBlockPos().toVec3();
-                            sp.sendFormattedText("§f{}\n§c❤ §a{}/{}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n§7{} {}",
+                            string hubInfoString = format("§f{}\n§c❤ §a{}/{}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n§7{} {}",
                                 Helper::getActorDisplayName(ac, sp.getLanguageCode()),
                                 toStr(ac->getHealth()), toStr(ac->getMaxHealth()),
                                 posdim, pos.x, posdim, pos.y, posdim, pos.z,
                                 getI18n("betweaker.hubinfo.status", lang), HUBHelper::actorCategory(ac, &sp)
                             );
+                            sp.sendTitlePacket(hubInfoString, TitleType::SetActionBar, 1, 1, 1);
                         }
                         else
                         {
@@ -110,7 +116,7 @@ namespace Module {
 
                                 if (block->getTypeName() == "minecraft:redstone_wire")
                                 {
-                                    sp.sendFormattedText("§f{}\n§7{} §6{}\n{} {}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n{}\n§c{}§7:§e{}",
+                                    string hubInfoString = format("§f{}\n§7{} §6{}\n{} {}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n{}\n§c{}§7:§e{}",
                                         Helper::getDisplayName(block->buildDescriptionId(), sp.getLanguageCode()),
                                         getI18n("betweaker.hubinfo.destroytime", lang), fmt::format("{:.1f}s", 0.1 / sp.getDestroyProgress(*block)),
                                         HUBHelper::canDestroy(block, sp.getHandSlot()), getI18n("betweaker.hubinfo.harvestable", lang),
@@ -119,16 +125,16 @@ namespace Module {
                                         getI18n("betweaker.hubinfo.redstonelevel", lang),
                                         block->getNbt()->getCompoundTag("states")->getInt("redstone_signal")
                                     );
+                                    sp.sendTitlePacket(hubInfoString, TitleType::SetActionBar, 1, 1, 1);
                                 }
                                 else
                                 {
-                                    sp.sendFormattedText("§f{}\n§7{} §6{}\n{} {}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n{}",
-                                        Helper::getDisplayName(block->buildDescriptionId(), sp.getLanguageCode()),
+                                    string hubInfoString = format("§f{}\n§7{} §6{}\n{} {}\n§7X:{}{} §7Y:{}{} §7Z:{}{}\n{}", Helper::getDisplayName(block->buildDescriptionId(), sp.getLanguageCode()),
                                         getI18n("betweaker.hubinfo.destroytime", lang), fmt::format("{:.1f}s", 0.1 / sp.getDestroyProgress(*block)),
                                         HUBHelper::canDestroy(block, sp.getHandSlot()), getI18n("betweaker.hubinfo.harvestable", lang),
                                         posdim, blpos.x, posdim, blpos.y, posdim, blpos.z,
-                                        HUBHelper::getCategoryName(item, sp.getLanguageCode())
-                                    );
+                                        HUBHelper::getCategoryName(item, sp.getLanguageCode()));
+                                    sp.sendTitlePacket(hubInfoString, TitleType::SetActionBar, 1, 1, 1);
                                 }
                             }
                         }
@@ -144,7 +150,7 @@ namespace Module {
                                 { fmt::format("§7Y:{}{}", posdim, pos.y), 3 },
                                 { fmt::format("§7Z:{}{}", posdim, pos.z), 4 },
                                 { fmt::format("§7{} {}", getI18n("betweaker.hubinfo.status", lang), HUBHelper::actorCategory(ac, &sp)), 5 }
-                            }, ObjectiveSortOrder::Ascending);
+                            }, ObjectiveSortOrder::Ascending);      
                         }
                         else
                         {
