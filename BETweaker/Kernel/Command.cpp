@@ -39,33 +39,33 @@ void setPlayerAbility(Player& player, AbilitiesIndex index, bool value)
 {
     ActorUniqueID uid = player.getUniqueID();
 	
-    auto abilities = player.getAbilities();
+    auto &abilities = player.getAbilities();
 
-    auto flying = abilities->getAbility(AbilitiesIndex::Flying).getBool();
+    auto flying = abilities.getAbility(AbilitiesIndex::Flying).getBool();
     if (index == AbilitiesIndex::Flying && value && player.isOnGround())
     {
-        abilities->setAbility(AbilitiesIndex::MayFly, value);
+        abilities.setAbility(AbilitiesIndex::MayFly, value);
     }
     if (index == AbilitiesIndex::MayFly && value == false && flying)
     {
-        abilities->setAbility(AbilitiesIndex::Flying, false);
+        abilities.setAbility(AbilitiesIndex::Flying, false);
     }
-    abilities->setAbility(index, value);
-    auto mayfly = abilities->getAbility(AbilitiesIndex::MayFly).getBool();
-    auto noclip = abilities->getAbility(AbilitiesIndex::NoClip).getBool();
+    abilities.setAbility(index, value);
+    auto mayfly = abilities.getAbility(AbilitiesIndex::MayFly).getBool();
+    auto noclip = abilities.getAbility(AbilitiesIndex::NoClip).getBool();
     player.setCanFly(mayfly || noclip);
     if (index == AbilitiesIndex::NoClip)
     {
-        abilities->setAbility(AbilitiesIndex::Flying, value);
+        abilities.setAbility(AbilitiesIndex::Flying, value);
     }
-    flying = abilities->getAbility(AbilitiesIndex::Flying).getBool();
-    Ability& ab = abilities->getAbility(AbilitiesLayer(1), AbilitiesIndex::Flying);
+    flying = abilities.getAbility(AbilitiesIndex::Flying).getBool();
+    Ability& ab = abilities.getAbility(AbilitiesLayer(1), AbilitiesIndex::Flying);
     ab.setBool(0);
     if (flying)
         ab.setBool(1);
-    UpdateAbilitiesPacket pkt(uid, *abilities);
+    UpdateAbilitiesPacket pkt(uid, abilities);
     auto pkt2= UpdateAdventureSettingsPacket(AdventureSettings());
-    abilities->setAbility(AbilitiesIndex::Flying, flying);
+    abilities.setAbility(AbilitiesIndex::Flying, flying);
     player.sendNetworkPacket(pkt2);
     player.sendNetworkPacket(pkt);
 }
@@ -522,7 +522,7 @@ public:
     void execute(CommandOrigin const& ori, CommandOutput& output) const override
     {
         vector<CommandOutputParameter>opt;
-        opt.push_back(CommandOutputParameter::CommandOutputParameter(std::to_string(Global<Level>->getLevelSeed64().mSeed)));
+        opt.push_back(CommandOutputParameter::CommandOutputParameter(std::to_string(Global<Level>->getLevelSeed64().to32BitRandomSeed())));
         output.success("commands.seed.success",opt);
     }
 
