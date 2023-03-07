@@ -11,7 +11,7 @@ namespace Module {
         auto BlockEntity = (SignBlockActor*)bi.getBlockEntity();
         if (BlockEntity)
         {
-            string lang = pl->getLanguageCode();
+            vector<string> lang = { pl->getLanguageCode() };
             string text = BlockEntity->getNbt()->getString("Text");
             Form::CustomForm form2(getI18n("betweaker.editsign.title", lang));
             auto out = Helper::split(text, "\n");

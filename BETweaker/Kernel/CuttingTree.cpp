@@ -88,7 +88,7 @@ namespace Module {
     static bool isAxe(ItemStack& item,Player* sp) {
         if (!AxeList.count(item.getTypeName())) return false;
         auto lorelist = item.getCustomLore();
-		if(lorelist.size() == 0 || lorelist[0] != getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode()))
+		if(lorelist.size() == 0 || lorelist[0] != getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() }))
             return false;
 		return true;
     }
@@ -214,24 +214,24 @@ namespace Module {
             vector<string> lore;
             if (lorelist.size() == 0)
             {
-                lore.push_back(getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode()));
+                lore.push_back(getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() }));
                 item->setCustomLore(lore);
                 sp->refreshInventory();
-                sp->sendTextPacket("§b[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode()), TextType::JUKEBOX_POPUP);
+                sp->sendTextPacket("§b[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() }), TextType::JUKEBOX_POPUP);
             }
             else
             {
-                if (lorelist[0] == getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode())) {
-                    lore.push_back(getI18n("betweaker.cuttingtree.loreoff", sp->getLanguageCode()));
+                if (lorelist[0] == getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() })) {
+                    lore.push_back(getI18n("betweaker.cuttingtree.loreoff", vector<string> { sp->getLanguageCode() }));
                     item->setCustomLore(lore);
                     sp->refreshInventory();
-                    sp->sendTextPacket("§a[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreoff", sp->getLanguageCode()), TextType::JUKEBOX_POPUP);
+                    sp->sendTextPacket("§a[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreoff", vector<string> { sp->getLanguageCode() }), TextType::JUKEBOX_POPUP);
                 }
                 else {
-                    lore.push_back(getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode()));
+                    lore.push_back(getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() }));
                     item->setCustomLore(lore);					
                     sp->refreshInventory();
-                    sp->sendTextPacket("§b[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreon", sp->getLanguageCode()), TextType::JUKEBOX_POPUP);
+                    sp->sendTextPacket("§b[BETweaker-Axe]"+ getI18n("betweaker.cuttingtree.loreon", vector<string> { sp->getLanguageCode() }), TextType::JUKEBOX_POPUP);
                 }
             }
         }

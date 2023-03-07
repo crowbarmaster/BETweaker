@@ -59,10 +59,10 @@ namespace HUBHelper {
     }
 	
     string actorCategory(Actor* ac, Player* sp) {
-        string out = "§c" + getI18n("betweaker.hubinfo.hostile", sp->getLanguageCode());
+        string out = "§c" + getI18n("betweaker.hubinfo.hostile", vector<string> { sp->getLanguageCode() });
         if (!ac->hasFamily("monster")) {
             if (findAttackTarget(ac) != sp && !ac->isAngry())
-                out = "§2" + getI18n("betweaker.hubinfo.frinedly", sp->getLanguageCode());
+                out = "§2" + getI18n("betweaker.hubinfo.frinedly", vector<string> { sp->getLanguageCode() });
         }
         return out;
     }
@@ -89,7 +89,7 @@ namespace Module {
                 if (Settings::NoHubList.find(sp.getRealName()) == std::end(Settings::NoHubList)){
                     Actor* ac = sp.getActorFromViewVector(5.25);
                     auto posdim = HUBHelper::getDim(sp);
-                    string lang = sp.getLanguageCode();
+                    vector<string> lang = { sp.getLanguageCode() };
                     if (Settings::HUBInfoShow == "TIP") {
                         if (ac) {
                             auto pos = ac->getBlockPos().toVec3();
