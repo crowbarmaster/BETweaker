@@ -8,10 +8,10 @@
 #define PLUGIN_NAME                 "BETweaker"
 #define PLUGIN_INTRODUCTION         "adds features to the game, giving survival players a very rich and useful feature set."
 #define PLUGIN_AUTOHR               "QingYu"
-#define PLUGIN_VERSION_MAJOR        1
-#define PLUGIN_VERSION_MINOR        2
-#define PLUGIN_VERSION_REVISION     3
-#define PLUGIN_VERSION_BUILD        2
+#define PLUGIN_VERSION_MAJOR        2
+#define PLUGIN_VERSION_MINOR        0
+#define PLUGIN_VERSION_REVISION     0
+#define PLUGIN_VERSION_BUILD        0
 #define PLUGIN_VERSION_STATUS       PLUGIN_VERSION_RELEASE
 
 #define TARGET_BDS_PROTOCOL_VERSION 568
