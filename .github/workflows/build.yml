@@ -26,6 +26,7 @@ jobs:
         Expand-Archive "BDS.zip" -DestinationPath ".\BDS";
 
     - name: Deploy Libraries
+      run: |
         $curDir = Get-Location;
         $bdsDir = $curDir.ToString() + "\BDS";
         $outDir = $curDir.ToString() + "\SDK\lib";
