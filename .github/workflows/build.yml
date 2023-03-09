@@ -17,7 +17,6 @@ jobs:
             
     - name: Deploy Bedrock
       run: |
-        Set-PSDebug -Trace 1;
         $content = Invoke-WebRequest -UseBasicParsing -uri "https://github.com/crowbarmaster/BedrockManagementService/raw/master/BMS_Files/bedrock_version_manifest.json";
         $jsonObj = $content | ConvertFrom-Json;
         $latestVer = $jsonObj | Select-Object -Last 1;
@@ -34,6 +33,9 @@ jobs:
     
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+
+    - name: Replace SDK file
+      run: Copy .\Tools\KeyOrNameResult.hpp .\SDK\include\llapi\mc\KeyOrNameResult.hpp
 
     - name: Build Plugin
       run: |
