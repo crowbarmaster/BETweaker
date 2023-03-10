@@ -34,8 +34,10 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Replace SDK file
-      run: Copy .\Tools\KeyOrNameResult.hpp .\SDK\include\llapi\mc\KeyOrNameResult.hpp
+    - name: Replace SDK files
+      run: |
+        Copy .\Tools\KeyOrNameResult.hpp .\SDK\include\llapi\mc\KeyOrNameResult.hpp
+        xcopy .\Tools\ExtraLibs\*.* .\SDK\lib /Y
 
     - name: Build Plugin
       run: |
