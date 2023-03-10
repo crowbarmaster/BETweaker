@@ -15,13 +15,17 @@ jobs:
       with:
         submodules: 'true'
             
-    - name: Deploy Bedrock
+    - name: Download latest Bedrock
       run: |
+        Set-PSDebug -Trace 1;
         $content = Invoke-WebRequest -UseBasicParsing -uri "https://github.com/crowbarmaster/BedrockManagementService/raw/master/BMS_Files/bedrock_version_manifest.json";
         $jsonObj = $content | ConvertFrom-Json;
         $latestVer = $jsonObj | Select-Object -Last 1;
         $BDSUrl = "https://minecraft.azureedge.net/bin-win/bedrock-server-" + $latestVer.version + ".zip";
         Invoke-WebRequest -uri $BDSUrl -OutFile "BDS.zip";
+        
+    - name: Expand Bedrock
+      run: |
         Expand-Archive "BDS.zip" -DestinationPath ".\BDS";
 
     - name: Deploy Libraries
