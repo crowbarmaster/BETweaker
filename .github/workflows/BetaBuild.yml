@@ -1,0 +1,100 @@
+name: BuildLiteLoaderPlugin
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [BetaBuild]
+    
+env:
+  PluginName: BETweaker
+  OutputDllName: BETweaker
+  Description: "Adds features to the game, giving survival players a very rich and useful feature set. By dreamguxiang."
+  ExtendedInfo: "Current version stripped of a few functions, but is mostly complete."
+  ProtectedFiles: "BETweaker\\*.*" # Use "|" for multiple entries.
+
+jobs:
+  build:    
+    runs-on: windows-2022
+    
+    steps:
+    - uses: actions/checkout@v3.4.0
+            
+    - name: Download latest Bedrock
+      run: |
+        Set-PSDebug -Trace 1;
+        git fetch -b develop "https://github.com/LiteLDev/LiteloaderSDK" "SDK"
+        $content = Invoke-WebRequest -UseBasicParsing -uri "https://github.com/crowbarmaster/BedrockManagementService/raw/master/BMS_Files/liteloader_version_manifest.json";
+        $jsonObj = $content | ConvertFrom-Json;
+        $latestVer = $jsonObj | Select-Object -Last 1;
+        $BDSUrl = "https://minecraft.azureedge.net/bin-win/bedrock-server-" + $latestVer.BDSVersion + ".zip";
+        $LLVerLocal = $latestVer.Version;
+        echo "LLVersion=$LLVerLocal" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        Invoke-WebRequest -uri $BDSUrl -OutFile "BDS.zip";
+        
+    - name: Expand Bedrock
+      run: |
+        Expand-Archive "BDS.zip" -DestinationPath ".\BDS";
+    - name: Deploy Libraries
+      run: |
+        $curDir = Get-Location;
+        $bdsDir = $curDir.ToString() + "\BDS";
+        $outDir = $curDir.ToString() + "\SDK\lib";
+        .\SDK\tools\LibraryBuilder.exe -o $outDir.ToString() $bdsDir.ToString();
+    
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Replace SDK files
+      run: |
+        Copy .\Tools\KeyOrNameResult.hpp .\SDK\include\llapi\mc\KeyOrNameResult.hpp
+        xcopy .\Tools\ExtraLibs\*.* .\SDK\lib /Y
+        
+    - name: Build Plugin
+      run: |
+        MSBuild.exe .\${{ env.PluginName }}.sln -property:Configuration=Release
+        
+    - name: Set version string
+      run: |
+        $TMP = (get-item .\x64\Release\${{ env.OutputDllName }}.dll).VersionInfo.FileVersion;
+        echo "PROJ_VER=$TMP" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "${{ env.PROJ_VER }}"
+    
+    - name: Create plugin manifest
+      run: |
+        Set-PSDebug -Trace 1;
+        class PluginManifest {
+          [string] $Name;
+          [string] $DllName;
+          [string] $Version;
+          [string] $LLVersion;
+          [string] $Description;
+          [string] $ExtendedInfo;
+          [string] $ProtectedFiles;
+        }
+        $newMani = [PluginManifest]@{ 
+          Name="${{ env.PluginName }}";
+          DllName="${{ env.OutputDllName }}";
+          LLVersion="${{ env.LLVersion }}"
+          Version="${{ env.PROJ_VER }}";
+          Description="${{ env.Description }}";
+          ExtendedInfo="${{ env.ExtendedInfo }}";
+          ProtectedFiles="${{ env.ProtectedFiles }}";
+        }
+        $newMani | ConvertTo-Json -depth 100 | Out-File "PluginManifest.json";
+        
+    - name: Compress Files
+      run: |
+        Set-PSDebug -Trace 1;
+        Compress-Archive .\x64\Release\*.dll .\${{ env.PluginName }}.zip;
+        Compress-Archive -Update .\PluginManifest.json .\${{ env.PluginName }}.zip;
+        Compress-Archive .\x64\Release\*.pdb .\${{ env.PluginName }}PDB.zip;
+        Dir;
+    - name: Push Automatic Release
+      uses: marvinpinto/action-automatic-releases@v1.2.1
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "${{ env.PROJ_VER }}"
+        prerelease: true
+        title: "Beta for LL ${{ github.event.client_payload.LLVer }}: Version ${{ env.PROJ_VER }}"
+        files: |
+            ${{ env.PluginName }}*.zip
