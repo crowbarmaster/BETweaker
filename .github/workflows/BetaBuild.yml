@@ -1,4 +1,4 @@
-name: BuildLiteLoaderPlugin
+name: BetaLiteLoaderPlugin
 
 on:
   workflow_dispatch:
