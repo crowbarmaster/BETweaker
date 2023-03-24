@@ -22,7 +22,7 @@ jobs:
     - name: Download latest Bedrock
       run: |
         Set-PSDebug -Trace 1;
-        git fetch -b develop "https://github.com/LiteLDev/LiteloaderSDK" "SDK"
+        git clone -b develop "https://github.com/LiteLDev/LiteloaderSDK" "SDK"
         $content = Invoke-WebRequest -UseBasicParsing -uri "https://github.com/crowbarmaster/BedrockManagementService/raw/master/BMS_Files/liteloader_version_manifest.json";
         $jsonObj = $content | ConvertFrom-Json;
         $latestVer = $jsonObj | Select-Object -Last 1;
